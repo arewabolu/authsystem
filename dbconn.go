@@ -17,7 +17,7 @@ var (
 )
 
 type UserDB struct {
-	db *sql.DB
+	Db *sql.DB
 }
 
 func init() {
@@ -35,7 +35,7 @@ func init() {
 
 	// Get a DB handle.
 	//cfg.FormatDSN is driver specific parameter
-	dbase.db, err = sql.Open("mysql", cfg.FormatDSN())
+	dbase.Db, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
 		log.Fatal(connerr)
 	}
