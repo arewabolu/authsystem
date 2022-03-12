@@ -10,10 +10,10 @@ import (
 )
 
 var (
-	User, Pasd, DbName, Addr string
-	err                      error
-	connerr                  = errors.New("Unable to connect with database")
-	readerr                  = errors.New("Could not read from file")
+	Admin, Pasd, DbName, Addr string
+	err                       error
+	connErr                   = errors.New("unable to connect with database")
+	readErr                   = errors.New("could not read request from file")
 )
 
 type UserDB struct {
@@ -25,7 +25,7 @@ func init() {
 
 	//Save Connection config.
 	cfg := mysql.Config{
-		User:                 User,
+		User:                 Admin,
 		Passwd:               Pasd,
 		Net:                  "tcp",
 		Addr:                 Addr,
@@ -37,7 +37,7 @@ func init() {
 	//cfg.FormatDSN is driver specific parameter
 	dbase.Db, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
-		log.Fatal(connerr)
+		log.Fatal(connErr)
 	}
 }
 
@@ -53,7 +53,7 @@ func GetUser(f string, n int64) string {
 	_, err = file.Read(buf)
 
 	if err != nil {
-		panic(readerr)
+		panic(readErr)
 	}
 	return string(buf[:n])
 }
@@ -69,7 +69,7 @@ func GetPasswd(f string, n int64) string {
 	_, err = file.Read(buf)
 
 	if err != nil {
-		panic(readerr)
+		panic(readErr)
 	}
 	return string(buf[:n])
 }
